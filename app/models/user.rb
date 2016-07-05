@@ -10,6 +10,7 @@ class User < ApplicationRecord
   enum gender: {female: 0, male: 1}
 
   validates :name, :email, presence: true
+  validates_uniqueness_of :email
   validates :gender, inclusion: {in: User.genders.keys}, allow_nil: true
 
 end
