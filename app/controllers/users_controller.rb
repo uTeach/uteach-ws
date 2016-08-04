@@ -19,6 +19,10 @@ class UsersController < ApplicationController
 		render json: User.page(params[:page]).per(params[:per])
 	end
 
+	def destroy
+		current_user.destroy!
+	end
+
 	protected
 
 	def user
