@@ -3,17 +3,11 @@ class UsersController < ApplicationController
 	skip_before_action :doorkeeper_authorize!, only: [ :create]
 
 	def create
-		render json: User.create!(email: params[:email],
-															password: params[:password],
-															name: params[:name],
-															gender: params[:gender],
-															birthday: params[:birthday],
-															picture: params[:picture]
-		)
+		render json: User.create!(user_params)
 	end
 
 	def update
-		user.update!(update_params)
+		user.update!(user_params)
 		render json: user
 	end
 
@@ -31,14 +25,7 @@ class UsersController < ApplicationController
 		@user ||= User.find params[:id]
 	end
 
-	def update_params
-		update_params = {}
-		update_params[:email] = params[:email] if params.key? :email
-		update_params[:name] = params[:name] if params.key? :name
-		update_params[:password] = params[:password] if params.key? :password
-		update_params[:gender] = params[:gender] if params.key? :gender
-		update_params[:birthday] = params[:birthday] if params.key? :birthday
-		update_params[:picture] = params[:picture] if params.key? :picture
-		update_params
+	def user_params
+		params.permit(:email, :name, :password, :gender, :birthday, :picture)
 	end
 end
