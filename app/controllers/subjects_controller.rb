@@ -23,7 +23,7 @@ class SubjectsController < ApplicationController
   end
 
   def subject_params
-    @name ||= params[:name].humanize
+    @name ||= params[:name]&.humanize
   end
 
   def subject

@@ -1,4 +1,4 @@
-def SubjectRemoverService
+class SubjectRemoverService
 
   def remove_subject(user, subject)
     user.remove_subject subject
