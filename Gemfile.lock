@@ -1,3 +1,12 @@
+GIT
+  remote: git://github.com/doorkeeper-gem/doorkeeper-grants_assertion.git
+  revision: 353e67e10d17e9421a3691d98bc41595cb046ed1
+  branch: master
+  specs:
+    doorkeeper-grants_assertion (0.0.1)
+      doorkeeper (>= 4.0)
+      railties (>= 3.1)
+
 GEM
   remote: https://rubygems.org/
   specs:
@@ -148,6 +157,7 @@ GEM
     nokogiri (1.6.8)
       mini_portile2 (~> 2.1.0)
       pkg-config (~> 1.1.7)
+    open_uri_redirections (0.2.1)
     orm_adapter (0.5.0)
     paperclip (5.0.0)
       activemodel (>= 4.2.0)
@@ -302,9 +312,11 @@ DEPENDENCIES
   capistrano-rails
   devise
   doorkeeper
+  doorkeeper-grants_assertion!
   fuubar
   kaminari
   listen (~> 3.0.5)
+  open_uri_redirections
   paperclip
   pg (~> 0.18)
   pry

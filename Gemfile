@@ -17,9 +17,11 @@ gem 'puma', '~> 3.0'
 
 gem 'devise'
 gem 'doorkeeper'
+gem 'doorkeeper-grants_assertion', github: "doorkeeper-gem/doorkeeper-grants_assertion", branch: "master"
 gem 'paperclip'
 gem 'kaminari'
 gem 'active_model_serializers', '~> 0.10.0'
+gem 'open_uri_redirections'
 
 
 group :development, :test do

@@ -4,7 +4,7 @@ class User < ApplicationRecord
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :trackable, :validatable
 
-  has_attached_file :picture, styles: { medium: "400x400#", thumb: "200x200#"}
+  has_attached_file :picture, styles: { large: "800x800#", medium: "400x400#", thumb: "200x200#"}
   validates_attachment :picture, content_type: {content_type: ["image/jpeg", "image/png"]}, allow_nil: true
 
   has_and_belongs_to_many :subjects
@@ -21,5 +21,9 @@ class User < ApplicationRecord
 
   def remove_subject subject
     subjects.delete subject
+  end
+
+  def add_picture url
+    self.picture = open url, allow_redirections: :safe
   end
 end

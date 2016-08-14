@@ -14,40 +14,31 @@ Doorkeeper.configure do
     end
   end
 
-  # resource_owner_from_assertion do
-  #   if !params[:assertion].nil?
-  #     user_data = FacebookRequest.new.user_data params[:assertion]
-  #     user = nil
-  #     if !user_data.nil? && !user_data['id'].nil?
-  #       user = User.find_by_facebook_id(user_data['id'])
-	#
-  #       if user.nil?
-  #         user = User.new facebook_id: user_data['id']
-  #         user.email = user_data['email'] unless user_data['email'].nil?
-	#
-  #         if user_data['middle_name'].nil?
-  #           user.firstname = user_data['first_name']
-  #         else
-  #           user.firstname = user_data['first_name'] + ' ' + user_data['middle_name']
-  #         end
-  #         user.lastname  = user_data['last_name']
-  #         user.gender = user_data ['gender'] if user_data.has_key? 'gender'
-  #         user.birthday = Date.strptime(user_data['birthday'], '%m/%d/%Y') if user_data.has_key? 'birthday'
-  #         user.location = user_data['location']['name'] if user_data.has_key? 'location'
-  #         user.add_picture('http://graph.facebook.com/' + user_data['id'] + '/picture?type=large&height=600&width=600')
-  #         user.save!
-  #         Device.create!({user: user, registration_id: params[:registration_id]})
-  #       else
-  #         raise Doorkeeper::Errors::DoorkeeperError, 'Banned' if user.banned? unless user.nil?
-  #         user.device.destroy unless user.device.nil?
-  #         user.device = Device.create!({user: user, registration_id: params[:registration_id]})
-  #         user.add_picture('http://graph.facebook.com/' + user_data['id'] + '/picture?type=large&height=600&width=600')
-  #         user.save!
-  #       end
-  #     end
-  #   end
-  #   user
-  # end
+  resource_owner_from_assertion do
+    if !params[:assertion].nil?
+      user_data = FacebookRequest.new.user_data params[:assertion]
+      user = nil
+      if !user_data.nil? && !user_data['id'].nil?
+        user = User.find_by_facebook_id(user_data['id'])
+
+        if user.nil?
+          user = User.new facebook_id: user_data['id']
+          user.email = user_data['email'] unless user_data['email'].nil?
+          user.name  = user_data['name']
+          user.password = Devise.friendly_token 8
+          user.gender = user_data ['gender'] if user_data.has_key? 'gender'
+          user.birthday = Date.strptime(user_data['birthday'], '%m/%d/%Y') if user_data.has_key? 'birthday'
+          user.location = user_data['location']['name'] if user_data.has_key? 'location'
+          user.add_picture('http://graph.facebook.com/' + user_data['id'] + '/picture?type=large&height=600&width=600')
+          user.save!
+        else
+          user.add_picture('http://graph.facebook.com/' + user_data['id'] + '/picture?type=large&height=600&width=600')
+          user.save!
+        end
+      end
+    end
+    user
+  end
 
   grant_flows %w(assertion authorization_code implicit password client_credentials)
 
