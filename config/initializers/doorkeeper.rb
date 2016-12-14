@@ -20,11 +20,11 @@ Doorkeeper.configure do
   #     user = nil
   #     if !user_data.nil? && !user_data['id'].nil?
   #       user = User.find_by_facebook_id(user_data['id'])
-	#
+  #
   #       if user.nil?
   #         user = User.new facebook_id: user_data['id']
   #         user.email = user_data['email'] unless user_data['email'].nil?
-	#
+  #
   #         if user_data['middle_name'].nil?
   #           user.firstname = user_data['first_name']
   #         else
