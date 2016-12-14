@@ -40,6 +40,7 @@ Doorkeeper.configure do
     user
   end
 
+
   grant_flows %w(assertion authorization_code implicit password client_credentials)
 
   # If you want to restrict access to the web interface for adding oauth authorized applications, you need to declare the block below.
