@@ -17,13 +17,14 @@ gem 'puma', '~> 3.0'
 
 gem 'devise'
 gem 'doorkeeper'
+gem 'doorkeeper-grants_assertion', github: "doorkeeper-gem/doorkeeper-grants_assertion", branch: "master"
 gem 'paperclip'
 gem 'kaminari'
 gem 'active_model_serializers', '~> 0.10.3'
+gem 'open_uri_redirections'
 
 
 group :development, :test do
-  # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem 'byebug', platform: :mri
   gem 'better_errors'
   gem 'fuubar'
