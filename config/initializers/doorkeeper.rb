@@ -1,3 +1,5 @@
+require_relative '../../app/src/external_auth_google'
+
 Doorkeeper.configure do
   # Change the ORM that doorkeeper will use (needs plugins)
   orm :active_record
@@ -16,24 +18,30 @@ Doorkeeper.configure do
 
   resource_owner_from_assertion do
     if !params[:assertion].nil?
-      user_data = FacebookRequest.new.user_data params[:assertion]
-      user = nil
-      if !user_data.nil? && !user_data['id'].nil?
-        user = User.find_by_facebook_id(user_data['id'])
+      provider = params[:provider]
+      if provider == 'google'
+        google_auth = ExternalAuth::Google.new params[:assertion]
+        user = google_auth.get_user!
+      elsif provider == 'facebook'
+        user_data = FacebookRequest.new.user_data params[:assertion]
+        user = nil
+        if !user_data.nil? && !user_data['id'].nil?
+          user = User.find_by_facebook_id(user_data['id'])
 
-        if user.nil?
-          user = User.new facebook_id: user_data['id']
-          user.email = user_data['email'] unless user_data['email'].nil?
-          user.name  = user_data['name']
-          user.password = Devise.friendly_token 8
-          user.gender = user_data ['gender'] if user_data.has_key? 'gender'
-          user.birthday = Date.strptime(user_data['birthday'], '%m/%d/%Y') if user_data.has_key? 'birthday'
-          user.location = user_data['location']['name'] if user_data.has_key? 'location'
-          user.add_picture('http://graph.facebook.com/' + user_data['id'] + '/picture?type=large&height=600&width=600')
-          user.save!
-        else
-          user.add_picture('http://graph.facebook.com/' + user_data['id'] + '/picture?type=large&height=600&width=600')
-          user.save!
+          if user.nil?
+            user = User.new facebook_id: user_data['id']
+            user.email = user_data['email'] unless user_data['email'].nil?
+            user.name  = user_data['name']
+            user.password = Devise.friendly_token 8
+            user.gender = user_data ['gender'] if user_data.has_key? 'gender'
+            user.birthday = Date.strptime(user_data['birthday'], '%m/%d/%Y') if user_data.has_key? 'birthday'
+            user.location = user_data['location']['name'] if user_data.has_key? 'location'
+            user.add_picture('http://graph.facebook.com/' + user_data['id'] + '/picture?type=large&height=600&width=600')
+            user.save!
+          else
+            user.add_picture('http://graph.facebook.com/' + user_data['id'] + '/picture?type=large&height=600&width=600')
+            user.save!
+          end
         end
       end
     end
