@@ -3,6 +3,7 @@ class UserSerializer < ActiveModel::Serializer
 
   has_many :subjects
   has_one :picture, serializer: PictureSerializer
+  has_one :expertise, seriializer: ExpertiseSerializer
 
   def picture
     Picture.new object.picture
