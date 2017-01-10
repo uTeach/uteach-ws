@@ -5,6 +5,8 @@ class User < ApplicationRecord
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :trackable, :validatable
 
+  acts_as_mappable
+
   has_attached_file :picture, styles: { large: "800x800#", medium: "400x400#", thumb: "200x200#"}
   validates_attachment :picture, content_type: {content_type: ["image/jpeg", "image/png"]}, allow_nil: true
 

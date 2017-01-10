@@ -22,6 +22,7 @@ gem 'paperclip'
 gem 'kaminari'
 gem 'active_model_serializers', '~> 0.10.3'
 gem 'open_uri_redirections'
+gem 'geokit-rails'
 
 
 group :development, :test do

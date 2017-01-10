@@ -1,5 +1,5 @@
 class UserSerializer < ActiveModel::Serializer
-  attributes :id, :name, :email, :gender, :birthday, :picture
+  attributes :id, :name, :email, :gender, :birthday, :picture, :latitude, :longitude
 
   has_many :subjects
   has_one :picture, serializer: PictureSerializer
@@ -7,5 +7,13 @@ class UserSerializer < ActiveModel::Serializer
 
   def picture
     Picture.new object.picture
+  end
+
+  def latitude
+    object.lat
+  end
+
+  def longitude
+    object.lng
   end
 end
