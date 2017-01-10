@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170107210414) do
+ActiveRecord::Schema.define(version: 20170110004852) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -60,6 +60,19 @@ ActiveRecord::Schema.define(version: 20170107210414) do
     t.datetime "created_at",                null: false
     t.datetime "updated_at",                null: false
     t.index ["uid"], name: "index_oauth_applications_on_uid", unique: true, using: :btree
+  end
+
+  create_table "static_images", force: :cascade do |t|
+    t.string   "name"
+    t.string   "element_type"
+    t.integer  "element_id"
+    t.datetime "created_at",         null: false
+    t.datetime "updated_at",         null: false
+    t.string   "image_file_name"
+    t.string   "image_content_type"
+    t.integer  "image_file_size"
+    t.datetime "image_updated_at"
+    t.index ["element_type", "element_id"], name: "index_static_images_on_element_type_and_element_id", using: :btree
   end
 
   create_table "subjects", force: :cascade do |t|
