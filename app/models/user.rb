@@ -1,5 +1,5 @@
 class User < ApplicationRecord
-  before_create :set_expertise
+  before_create :set_expertise, :set_rating
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable and :omniauthable
   devise :database_authenticatable, :registerable,
@@ -12,6 +12,7 @@ class User < ApplicationRecord
 
   has_and_belongs_to_many :subjects
   has_one :expertise
+  has_one :rating
 
   enum gender: {female: 0, male: 1}
 
@@ -33,5 +34,9 @@ class User < ApplicationRecord
 
   def set_expertise
     self.expertise = Expertise.create! value: 0
+  end
+
+  def set_rating
+    self.rating = Rating.create value: 0.0
   end
 end

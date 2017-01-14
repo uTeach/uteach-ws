@@ -26,7 +26,7 @@ class UsersController < ApplicationController
 	protected
 
 	def user
-		@user ||= User.find params[:id]
+		params[:id] == 'me' ? (@user ||= current_user) : (@user ||= User.find params[:id])
 	end
 
 	def user_params

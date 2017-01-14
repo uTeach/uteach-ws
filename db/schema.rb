@@ -10,14 +10,13 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170110025648) do
+ActiveRecord::Schema.define(version: 20170114203411) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
   create_table "expertises", force: :cascade do |t|
     t.integer  "value"
-    t.string   "color"
     t.integer  "user_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
@@ -60,6 +59,14 @@ ActiveRecord::Schema.define(version: 20170110025648) do
     t.datetime "created_at",                null: false
     t.datetime "updated_at",                null: false
     t.index ["uid"], name: "index_oauth_applications_on_uid", unique: true, using: :btree
+  end
+
+  create_table "ratings", force: :cascade do |t|
+    t.float    "value",      default: 0.0
+    t.integer  "user_id"
+    t.datetime "created_at",               null: false
+    t.datetime "updated_at",               null: false
+    t.index ["user_id"], name: "index_ratings_on_user_id", using: :btree
   end
 
   create_table "static_images", force: :cascade do |t|
@@ -119,4 +126,5 @@ ActiveRecord::Schema.define(version: 20170110025648) do
   add_foreign_key "expertises", "users"
   add_foreign_key "oauth_access_grants", "oauth_applications", column: "application_id"
   add_foreign_key "oauth_access_tokens", "oauth_applications", column: "application_id"
+  add_foreign_key "ratings", "users"
 end
