@@ -19,6 +19,7 @@ class User < ApplicationRecord
   validates :name, :email, presence: true
   validates_uniqueness_of :email
   validates :gender, inclusion: {in: User.genders.keys}, allow_nil: true
+  validates_numericality_of :class_cost, :greater_than_or_equal_to => 0
 
   def add_subject subject
     subjects << subject unless subjects.include? subject
