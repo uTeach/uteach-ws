@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170114222754) do
+ActiveRecord::Schema.define(version: 20170116224210) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -82,6 +82,11 @@ ActiveRecord::Schema.define(version: 20170114222754) do
     t.index ["element_type", "element_id"], name: "index_static_images_on_element_type_and_element_id", using: :btree
   end
 
+  create_table "students", force: :cascade do |t|
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
   create_table "subjects", force: :cascade do |t|
     t.string   "name",       null: false
     t.datetime "created_at", null: false
@@ -121,6 +126,7 @@ ActiveRecord::Schema.define(version: 20170114222754) do
     t.float    "lat"
     t.float    "lng"
     t.float    "class_cost",             default: 0.0
+    t.string   "type"
     t.index ["email"], name: "index_users_on_email", unique: true, using: :btree
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true, using: :btree
   end

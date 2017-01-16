@@ -28,6 +28,8 @@ module UteachWs
     config.api_only = true
 
     config.autoload_paths << "#{Rails.root}/app/services"
+    config.autoload_paths << "#{Rails.root}/lib"
+
 
   end
 end
