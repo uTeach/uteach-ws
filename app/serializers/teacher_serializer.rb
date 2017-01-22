@@ -1,5 +1,5 @@
 class TeacherSerializer < ActiveModel::Serializer
-  attributes :id, :name, :email, :gender, :birthday, :picture, :latitude, :longitude, :class_cost
+  attributes :id, :name, :email, :gender, :birthday, :picture, :location, :class_cost
 
   has_many :subjects
   has_one :picture, serializer: PictureSerializer
@@ -10,11 +10,7 @@ class TeacherSerializer < ActiveModel::Serializer
     Picture.new object.picture
   end
 
-  def latitude
-    object.lat
-  end
-
-  def longitude
-    object.lng
+  def location
+    {latitude: object.lat, longitude: object.lng}
   end
 end
