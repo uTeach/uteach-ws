@@ -1,4 +1,4 @@
-class UserSerializer < ActiveModel::Serializer
+class TeacherSerializer < ActiveModel::Serializer
   attributes :id, :name, :email, :gender, :birthday, :picture, :latitude, :longitude, :class_cost
 
   has_many :subjects

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170116224210) do
+ActiveRecord::Schema.define(version: 20170122193128) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -20,6 +20,7 @@ ActiveRecord::Schema.define(version: 20170116224210) do
     t.integer  "user_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer  "teacher_id"
     t.index ["user_id"], name: "index_expertises_on_user_id", using: :btree
   end
 
@@ -66,6 +67,7 @@ ActiveRecord::Schema.define(version: 20170116224210) do
     t.integer  "user_id"
     t.datetime "created_at",               null: false
     t.datetime "updated_at",               null: false
+    t.integer  "teacher_id"
     t.index ["user_id"], name: "index_ratings_on_user_id", using: :btree
   end
 
@@ -82,11 +84,6 @@ ActiveRecord::Schema.define(version: 20170116224210) do
     t.index ["element_type", "element_id"], name: "index_static_images_on_element_type_and_element_id", using: :btree
   end
 
-  create_table "students", force: :cascade do |t|
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-  end
-
   create_table "subjects", force: :cascade do |t|
     t.string   "name",       null: false
     t.datetime "created_at", null: false
@@ -95,11 +92,11 @@ ActiveRecord::Schema.define(version: 20170116224210) do
     t.index ["name"], name: "index_subjects_on_name", using: :btree
   end
 
-  create_table "subjects_users", id: false, force: :cascade do |t|
-    t.integer "subject_id"
-    t.integer "user_id"
-    t.index ["subject_id"], name: "index_subjects_users_on_subject_id", using: :btree
-    t.index ["user_id"], name: "index_subjects_users_on_user_id", using: :btree
+  create_table "subjects_teachers", id: false, force: :cascade do |t|
+    t.integer "subject_id", null: false
+    t.integer "teacher_id", null: false
+    t.index ["subject_id", "teacher_id"], name: "index_subjects_teachers_on_subject_id_and_teacher_id", using: :btree
+    t.index ["teacher_id", "subject_id"], name: "index_subjects_teachers_on_teacher_id_and_subject_id", using: :btree
   end
 
   create_table "users", force: :cascade do |t|
