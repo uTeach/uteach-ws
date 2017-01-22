@@ -1,7 +1,7 @@
 class RatingSerializer < ActiveModel::Serializer
-  attributes :value, :letter
+  attributes :value
 
-  def letter
+  def value
     return 'F' if object.value < 0.7
     return 'E' if object.value < 1.4
     return 'D' if object.value < 2.1
