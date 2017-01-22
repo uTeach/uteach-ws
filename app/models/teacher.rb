@@ -4,7 +4,6 @@ class Teacher < User
   has_attached_file :picture, styles: { large: "800x800#", medium: "400x400#", thumb: "200x200#"}
   validates_attachment :picture, content_type: {content_type: ["image/jpeg", "image/png"]}, allow_nil: true
 
-  # has_and_belongs_to_many :subjects, association_foreign_key: :subject_id, join_table: :subjects_teachers
   has_and_belongs_to_many :subjects, join_table: :subjects_teachers
   has_one :expertise, dependent: :destroy
   has_one :rating, dependent: :destroy

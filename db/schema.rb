@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170122193128) do
+ActiveRecord::Schema.define(version: 20170122195519) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -84,11 +84,18 @@ ActiveRecord::Schema.define(version: 20170122193128) do
     t.index ["element_type", "element_id"], name: "index_static_images_on_element_type_and_element_id", using: :btree
   end
 
+  create_table "subject_levels", force: :cascade do |t|
+    t.integer  "level"
+    t.integer  "subject_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["subject_id"], name: "index_subject_levels_on_subject_id", using: :btree
+  end
+
   create_table "subjects", force: :cascade do |t|
     t.string   "name",       null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.integer  "level"
     t.index ["name"], name: "index_subjects_on_name", using: :btree
   end
 
@@ -132,4 +139,5 @@ ActiveRecord::Schema.define(version: 20170122193128) do
   add_foreign_key "oauth_access_grants", "oauth_applications", column: "application_id"
   add_foreign_key "oauth_access_tokens", "oauth_applications", column: "application_id"
   add_foreign_key "ratings", "users"
+  add_foreign_key "subject_levels", "subjects"
 end
